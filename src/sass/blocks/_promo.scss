@@ -1,0 +1,38 @@
+.promo {
+	height: 100vh;
+	background: url('img/promo.jpg') center (center/cover) no-repeat;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 80px;
+	&__text {
+		color: #fff;
+		line-height: 1.5;
+		h2 {
+			font-size: 3em;
+			font-weight: 500;
+			span {
+				font-weight: 700;
+				font-size: 1.5em;
+			}
+		}
+		h3 {
+			font-size: 2em;
+			font-weight: 500;
+		}
+	}
+}
+.btn {
+	display: inline-block;
+	margin-top: 20px;
+	font-size: 18px;
+	background-color: #0064fa;		
+	padding: 10px 20px;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 4px;
+	transition: all .5s;
+	&:hover {
+		background-color: darken(#0064fa, 20%);
+	}
+}

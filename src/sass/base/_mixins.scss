@@ -1,0 +1,9 @@
+@mixin active-opacity {
+	opacity: 1;
+	transform: translate(0, 0);
+	transform: rotateX(0) rotateY(0);
+}
+@mixin active-scale {
+	opacity: 1;
+	transform: scale(1);
+}

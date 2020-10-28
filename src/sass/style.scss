@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,700;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap");
+@import './base/mixins';
+@import './base/animation';
+@import './blocks/navbar';
+@import './blocks/promo';
+@import './blocks/about';
+@import './blocks/tech';
+@import './blocks/projects';
+@import './blocks/contacts';
+
+
+
+@import './media/media';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Poppins, sans-serif;
+	scroll-behavior: smooth;
+}
+
+body.overflow-hidden {
+	overflow: hidden;
+}

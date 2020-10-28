@@ -1,0 +1,74 @@
+header {
+	nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		display: flex;
+		padding: 30px 5%;
+		justify-content: space-between;
+		align-items: center;
+		background-color: rgba(0, 0, 0, .7);
+		z-index: 1000;
+		transition: all .5s;
+		.logo {
+			cursor: pointer;
+			font-size: 20px;
+			font-weight: bold;
+			color: #fff;
+		}
+
+		.nav-links {
+			position: relative;
+
+			#marker {
+				position: absolute;
+				display: block;
+				top: 100%;
+				border-radius: 4px;
+				height: 5px;
+				transition: all .3s ease;
+				background-color: rgb(0, 100, 250);
+			}
+
+			li {
+				display: inline-block;
+				list-style: none;
+
+				a {
+					padding: 0 20px;
+					text-decoration: none;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+.sticky {
+	nav {
+		background-color: #fff;
+		box-shadow: 0 5px 20px rgba(0,0,0, 0.1);
+		padding: 20px 5%;
+		.logo {
+			color: black;
+		}
+		.nav-links li a {
+			color: black;
+		}
+	}
+	.burger span {
+		background: black;
+	}
+}
+.burger {
+	display: none;
+	span {
+		display: block;
+		opacity: 1;
+		margin: 5px 0;
+		height: 2px;
+		width: 20px;
+		background: #fff;
+		transition: all .5s;
+	}
+}
