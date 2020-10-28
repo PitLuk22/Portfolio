@@ -3091,38 +3091,61 @@ const animationByScroll = (Vivus, moveBlock, offset) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/requests */ "./src/js/services/requests.js");
+/* harmony import */ var _validateInputs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateInputs */ "./src/js/modules/validateInputs.js");
+
 
 
 const forms = () => {
   const form = document.querySelector('form'),
         inputs = document.querySelectorAll('.contacts__form-input'),
         btn = document.querySelector('.contacts__form-submit'),
-        statusBlock = document.querySelector('.status-message');
+        statusBlock = document.querySelector('.status-message'),
+        statusText = statusBlock.querySelector('span');
   const message = {
     loading: 'Loading...',
     thanks: 'Thanks, I will contact you as soon as possible!',
-    failure: 'Something went wrong!',
+    failure: 'Something went wrong :( <br> Please, try again!',
     spinner: 'img/spinner.gif',
     ok: 'img/ok.svg',
     fail: 'img/error.svg'
   };
   form.addEventListener('submit', e => {
-    e.preventDefault();
-    btn.textContent = ''; // Create spinner inside statusMessage block
+    e.preventDefault(); // Validation 
 
-    const statusImg = document.createElement('img');
-    statusImg.setAttribute('src', message.fail);
-    statusImg.classList.add('status-btn');
-    btn.appendChild(statusImg);
-    statusBlock.classList.add('active-status-message');
-    statusBlock.querySelector('span').textContent = message.thanks;
-    setTimeout(() => {// statusBlock.classList.remove('active-status-message');
-      // statusBlock.classList.add('active-status-message-end');
-    }, 2000); // на промисах, когда будет finally, запустить это строку 
-    // statusBlock.classList.remove('active-status-message-end');
+    if (Object(_validateInputs__WEBPACK_IMPORTED_MODULE_1__["default"])('#fullname', '#email', '#message')) {
+      btn.textContent = ''; // Create spinner inside statusMessage block
 
-    const formData = new FormData(form);
-    Object(_services_requests__WEBPACK_IMPORTED_MODULE_0__["default"])('server.php', formData).then(res => console.log(res));
+      const statusImg = document.createElement('img');
+      statusImg.setAttribute('src', message.spinner);
+      btn.appendChild(statusImg);
+      const formData = new FormData(form);
+      Object(_services_requests__WEBPACK_IMPORTED_MODULE_0__["default"])('server.php', formData).then(res => {
+        console.log(res); //btn
+
+        statusImg.setAttribute('src', message.ok); // Add text into statusBlock
+
+        statusBlock.classList.add('active-status-message');
+        statusText.textContent = message.thanks;
+      }).catch(() => {
+        //btn
+        statusImg.setAttribute('src', message.fail); // Add text into statusBlock
+
+        statusBlock.classList.add('active-status-message');
+        statusText.innerHTML = message.failure;
+      }).finally(() => {
+        setTimeout(() => {
+          statusBlock.classList.add('active-status-message-end');
+          statusBlock.classList.remove('active-status-message');
+          setTimeout(() => {
+            statusBlock.classList.remove('active-status-message-end');
+          }, 1000);
+          btn.textContent = 'SEND';
+        }, 3000); // Clear inputs
+
+        inputs.forEach(input => input.value = '');
+        form.reset();
+      });
+    }
   });
 };
 
@@ -3398,6 +3421,47 @@ const tech = () => {
 
 /***/ }),
 
+/***/ "./src/js/modules/validateInputs.js":
+/*!******************************************!*\
+  !*** ./src/js/modules/validateInputs.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const validateInputs = (name, email, textarea) => {
+  const nameField = document.querySelector(name);
+  const emailField = document.querySelector(email);
+  const textareaField = document.querySelector(textarea);
+  let errors = 0;
+
+  const validateName = name => name.value !== '';
+
+  const validateEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email.value);
+  };
+
+  const validateTextArea = textarea => textarea.value !== '';
+
+  const warning = elem => {
+    errors++;
+    elem.style.boxShadow = 'rgba(255, 0, 0, 0.41) 0px 0px 10px 0px';
+  };
+
+  const success = elem => elem.style.boxShadow = 'none';
+
+  !validateName(nameField) ? warning(nameField) : success(nameField);
+  !validateEmail(emailField) ? warning(emailField) : success(emailField);
+  !validateTextArea(textareaField) ? warning(textareaField) : success(textareaField);
+  return errors === 0;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (validateInputs);
+
+/***/ }),
+
 /***/ "./src/js/services/requests.js":
 /*!*************************************!*\
   !*** ./src/js/services/requests.js ***!
@@ -3413,6 +3477,11 @@ const postData = async (url, data) => {
     body: data
   });
   console.log(url);
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch: ${url}, status: ${res.status}`);
+  }
+
   return await res.text();
 };
 
