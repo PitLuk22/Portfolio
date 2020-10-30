@@ -7,6 +7,7 @@ import animationByScroll from './modules/animationByScroll';
 import offset from './modules/offset';
 import tech from './modules/tech';
 import forms from './modules/form';
+import scrolling from './modules/scrolling';
 
 
 import Vivus from 'vivus';
@@ -40,5 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// FORM
 	forms();
+
+	// Scrolling
+	scrolling('.pageup');
 
 })

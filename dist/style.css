@@ -563,40 +563,63 @@ header nav {
         margin: 0 8px; }
   .contacts .status-message {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(200%, -50%);
-        -ms-transform: translate(200%, -50%);
-            transform: translate(200%, -50%);
-    width: 400px;
-    height: 200px;
-    background-color: #fff;
-    -webkit-clip-path: polygon(42% 0, 80% 1%, 100% 32%, 100% 100%, 70% 100%, 19% 100%, 0 65%, 0 0);
-            clip-path: polygon(42% 0, 80% 1%, 100% 32%, 100% 100%, 70% 100%, 19% 100%, 0 65%, 0 0);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background-color: #0571fd;
-    color: #fff;
-    font-size: 17px;
-    padding: 20px;
-    text-align: center;
-    border-radius: 6px;
-    opacity: 0;
-    -webkit-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    transition: all .3s ease; }
-  .contacts .active-status-message {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1500;
+    visibility: hidden; }
+    .contacts .status-message__popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(200%, -50%);
+          -ms-transform: translate(200%, -50%);
+              transform: translate(200%, -50%);
+      width: 400px;
+      height: 200px;
+      background-color: #fff;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      background-color: #000;
+      color: #000;
+      font-size: 17px;
+      padding: 20px;
+      border-radius: 10px;
+      opacity: 0;
+      -webkit-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      transition: all 1s ease; }
+      .contacts .status-message__popup div {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 19px; }
+      .contacts .status-message__popup img {
+        width: 50px; }
+  .contacts .active-status-message-success {
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    opacity: 1; }
+    opacity: 1;
+    background-color: #76FEC5; }
+  .contacts .active-status-message-error {
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    opacity: 1;
+    background-color: #EE3D48; }
   .contacts .active-status-message-end {
     -webkit-transform: translate(-350%, -50%);
         -ms-transform: translate(-350%, -50%);

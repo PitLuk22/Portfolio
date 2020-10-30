@@ -26,7 +26,6 @@
 			line-height: 0;
 			box-shadow: 7px 12px 10px 2px rgba(34, 60, 80, 0.2);
 			&-img {
-				// display: block;
 				width: 100%;
 				object-fit: cover;
 				height: 390px;
@@ -42,11 +41,12 @@
 				top: 100%;
 				width: 100%;
 				height: 100%;
-				background-color: rgba(0, 59, 148, 0.6);
+				background-color: rgba($primary, 0.6);
+				// background-color: rgba(0, 59, 148, 0.6);
 				transition: all .3s ease;
 				a {
 					text-align: center;
-					color: white;
+					color: $white;
 					font-size: 25px;
 					margin-bottom: 40px;
 					transition: color .3s ;
@@ -57,7 +57,7 @@
 				span {
 					font-size: 23px;
 					font-weight: 600;
-					color: white;
+					color: $white;
 				}
 			}
 			&:hover &-sub {	

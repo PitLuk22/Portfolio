@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,700;1,300;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap");
+@import './base/variables';
 @import './base/mixins';
 @import './base/animation';
 @import './blocks/navbar';
@@ -23,4 +24,16 @@
 
 body.overflow-hidden {
 	overflow: hidden;
+}
+.pageup {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	width: 40px;
+	transition: opacity .8s ease, fill .2s;
+	fill: #0064fa;
+	&:hover {
+		fill: #2196f3;
+		// fill: rgb(0, 255, 187);
+	}
 }

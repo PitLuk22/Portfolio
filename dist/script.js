@@ -3099,12 +3099,16 @@ const forms = () => {
   const form = document.querySelector('form'),
         inputs = document.querySelectorAll('.contacts__form-input'),
         btn = document.querySelector('.contacts__form-submit'),
-        statusBlock = document.querySelector('.status-message'),
-        statusText = statusBlock.querySelector('span');
+        statusOverlay = document.querySelector('.status-message'),
+        statusBlock = statusOverlay.querySelector('.status-message__popup'),
+        statusText = statusBlock.querySelector('div'),
+        statusImg = statusBlock.querySelector('img');
   const message = {
     loading: 'Loading...',
     thanks: 'Thanks, I will contact you as soon as possible!',
+    thanksSuccess: 'img/success.svg',
     failure: 'Something went wrong :( <br> Please, try again!',
+    failureError: 'img/envelope-error.svg',
     spinner: 'img/spinner.gif',
     ok: 'img/ok.svg',
     fail: 'img/error.svg'
@@ -3115,28 +3119,22 @@ const forms = () => {
     if (Object(_validateInputs__WEBPACK_IMPORTED_MODULE_1__["default"])('#fullname', '#email', '#message')) {
       btn.textContent = ''; // Create spinner inside statusMessage block
 
-      const statusImg = document.createElement('img');
-      statusImg.setAttribute('src', message.spinner);
-      btn.appendChild(statusImg);
+      const btnImg = document.createElement('img');
+      btnImg.setAttribute('src', message.spinner);
+      btn.appendChild(btnImg);
       const formData = new FormData(form);
-      Object(_services_requests__WEBPACK_IMPORTED_MODULE_0__["default"])('server.php', formData).then(res => {
-        console.log(res); //btn
-
-        statusImg.setAttribute('src', message.ok); // Add text into statusBlock
-
-        statusBlock.classList.add('active-status-message');
-        statusText.textContent = message.thanks;
+      Object(_services_requests__WEBPACK_IMPORTED_MODULE_0__["default"])('php/server.php', formData).then(res => {
+        console.log(res);
+        addStylesToPopup(btnImg, message.ok, 'active-status-message-success', message.thanks, message.thanksSuccess);
       }).catch(() => {
-        //btn
-        statusImg.setAttribute('src', message.fail); // Add text into statusBlock
-
-        statusBlock.classList.add('active-status-message');
-        statusText.innerHTML = message.failure;
+        addStylesToPopup(btnImg, message.fail, 'active-status-message-error', message.failure, message.failureError);
       }).finally(() => {
         setTimeout(() => {
           statusBlock.classList.add('active-status-message-end');
-          statusBlock.classList.remove('active-status-message');
+          statusBlock.classList.remove('active-status-message-success');
+          statusBlock.classList.remove('active-status-message-error');
           setTimeout(() => {
+            statusOverlay.style.visibility = 'hidden';
             statusBlock.classList.remove('active-status-message-end');
           }, 1000);
           btn.textContent = 'SEND';
@@ -3147,6 +3145,18 @@ const forms = () => {
       });
     }
   });
+
+  const addStylesToPopup = (btnImg, btnImgSrc, popupClass, popupText, popupImg) => {
+    //img
+    btnImg.setAttribute('src', btnImgSrc); //overlay
+
+    statusOverlay.style.visibility = 'visible'; //popup
+
+    statusBlock.classList.add(popupClass); //message
+
+    statusText.innerHTML = popupText;
+    statusImg.setAttribute('src', popupImg);
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (forms);
@@ -3337,7 +3347,9 @@ const showProjects = () => {
   };
 
   const defineFullHeight = () => {
-    if (document.documentElement.offsetWidth > 1259) {
+    if (document.documentElement.offsetWidth >= 1840) {
+      currentHeight = startedHeight * 2;
+    } else if (document.documentElement.offsetWidth > 1259) {
       currentHeight = startedHeight * 3;
     } else {
       currentHeight = startedHeight * 6;
@@ -3348,7 +3360,9 @@ const showProjects = () => {
 
   const hideSomeProjects = projects => {
     projects.forEach((elem, i) => {
-      if (document.documentElement.offsetWidth > 1259) {
+      if (document.documentElement.offsetWidth >= 1840) {
+        i >= 3 ? addHideStyles(elem) : addShowStyles(elem);
+      } else if (document.documentElement.offsetWidth > 1259) {
         i >= 2 ? addHideStyles(elem) : addShowStyles(elem);
       } else {
         i >= 1 ? addHideStyles(elem) : addShowStyles(elem);
@@ -3482,7 +3496,7 @@ const postData = async (url, data) => {
     throw new Error(`Could not fetch: ${url}, status: ${res.status}`);
   }
 
-  return await res.text();
+  return await res.json();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (postData);

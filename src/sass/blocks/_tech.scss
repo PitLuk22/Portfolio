@@ -1,5 +1,5 @@
 .tech {
-	background-color: #111;
+	background-color: $almoust-black;
 	padding: 50px;
 	&__content {
 		padding-top: 30px;
@@ -12,8 +12,8 @@
 			padding: 40px 20px;
 			margin: 20px;
 			text-align: center;
-			background-color: #222;
-			color: #fff;
+			background-color: $grey;
+			color: $white;
 			border-radius: 5px;
 			transition: all .5s;
 			i {
@@ -25,7 +25,7 @@
 				margin-bottom: 10px;
 			}
 			&:hover {
-				background-color: #2196f3;
+				background-color: $secondary;
 			}
 			
 		}

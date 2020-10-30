@@ -9,8 +9,8 @@ const autoprefixer = require("gulp-autoprefixer");
 const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
 
-// const dist = "/Applications/MAMP/htdocs/Portfolio"; // Ссылка на вашу папку на локальном сервере
-const dist = "./dist";
+const dist = "/Applications/MAMP/htdocs/Portfolio"; // Ссылка на вашу папку на локальном сервере
+// const dist = "./dist";
 
 gulp.task("copy-html", () => {
 	return gulp.src("./src/index.html")
@@ -46,11 +46,9 @@ gulp.task('images', function () {
 		.pipe(gulp.dest(dist + "/img"));
 });
 
-gulp.task("copy-php", () => {
-	return gulp
-		.src("./src/php/*.php")
-		.pipe(gulp.dest(dist))
-	//   .on("end", browsersync.reload);
+gulp.task('copy-php', function () {
+	return gulp.src("src/php/**/*")
+		.pipe(gulp.dest(dist + "/php"));
 });
 
 gulp.task('clear', function () {

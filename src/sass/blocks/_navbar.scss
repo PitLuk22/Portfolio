@@ -15,7 +15,7 @@ header {
 			cursor: pointer;
 			font-size: 20px;
 			font-weight: bold;
-			color: #fff;
+			color: $white;
 		}
 
 		.nav-links {
@@ -28,7 +28,7 @@ header {
 				border-radius: 4px;
 				height: 5px;
 				transition: all .3s ease;
-				background-color: rgb(0, 100, 250);
+				background-color: $primary;
 			}
 
 			li {
@@ -38,7 +38,7 @@ header {
 				a {
 					padding: 0 20px;
 					text-decoration: none;
-					color: #fff;
+					color: $white;
 				}
 			}
 		}
@@ -46,18 +46,18 @@ header {
 }
 .sticky {
 	nav {
-		background-color: #fff;
+		background-color: $white;
 		box-shadow: 0 5px 20px rgba(0,0,0, 0.1);
 		padding: 20px 5%;
 		.logo {
 			color: black;
 		}
 		.nav-links li a {
-			color: black;
+			color: $black;
 		}
 	}
 	.burger span {
-		background: black;
+		background: $black;
 	}
 }
 .burger {
@@ -68,7 +68,7 @@ header {
 		margin: 5px 0;
 		height: 2px;
 		width: 20px;
-		background: #fff;
+		background: $white;
 		transition: all .5s;
 	}
 }

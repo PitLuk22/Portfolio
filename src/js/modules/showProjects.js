@@ -22,7 +22,9 @@ const showProjects = () => {
 	}
 
 	const defineFullHeight = () => {
-		if (document.documentElement.offsetWidth > 1259) {
+		if (document.documentElement.offsetWidth >= 1840) {
+			currentHeight = startedHeight * 2;
+		} else if (document.documentElement.offsetWidth > 1259) {
 			currentHeight = startedHeight * 3;
 		} else {
 			currentHeight = startedHeight * 6;
@@ -32,7 +34,9 @@ const showProjects = () => {
 
 	const hideSomeProjects = (projects) => {
 		projects.forEach((elem, i) => {
-			if (document.documentElement.offsetWidth > 1259) {
+			if (document.documentElement.offsetWidth >= 1840) {
+				i >= 3 ? addHideStyles(elem) : addShowStyles(elem);
+			} else if (document.documentElement.offsetWidth > 1259) {
 				i >= 2 ? addHideStyles(elem) : addShowStyles(elem);
 			} else {
 				i >= 1 ? addHideStyles(elem) : addShowStyles(elem);
